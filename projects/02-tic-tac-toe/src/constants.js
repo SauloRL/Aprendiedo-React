@@ -1,8 +1,7 @@
 export const TURNS = {
-    X:'x',
-    O:'o'
-  }
-  
+    X:'❌',
+    O:'⚪'     
+  }    
   //combos
 export const WINNER_COMBOS = [
     //horizontales

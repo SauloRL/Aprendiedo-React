@@ -97,7 +97,7 @@ body {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-winner .text {
+.winner .text {
   background: #111;
   height: 300px;
   width: 320px;
@@ -109,6 +109,7 @@ winner .text {
   align-items: center;
   gap: 20px;
 }
+
 .winner .win {
   margin: 0 auto;
   width: fit-content;

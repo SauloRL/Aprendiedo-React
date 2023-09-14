@@ -1,63 +1,63 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import confetti from "canvas-confetti"
 import { Square } from './components/Square.jsx'
 import { TURNS } from './constants'
 import { checkWinnerFrom } from './logic/board'
 import { WinnerModal } from './components/WinnerModal.jsx'
 import { checkEndGame } from './logic/board'
-import { saveGameToStorage,resetGameStorage } from './logic/Storage.js'
+import { saveGameToStorage, resetGameStorage } from './logic/Storage.js'
 
-function App() {  
+function App() {
 
   //cargar del localstorage los estados iniciales para recuperar la partida.
-  const [board, setBoard] = useState(()=>{
+  const [board, setBoard] = useState(() => {
     const boardFromStorage = window.localStorage.getItem('board')
     return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
   })
-  const [turn,setTurn] = useState(()=>{
-      const turnFromStorage = window.localStorage.getItem('turn')
-      return turnFromStorage ?? TURNS.X    
+  const [turn, setTurn] = useState(() => {
+    const turnFromStorage = window.localStorage.getItem('turn')
+    return turnFromStorage ?? TURNS.X
   })
 
-  const [winner,setWinner] = useState(null) 
+  const [winner, setWinner] = useState(null)
   //null no hay ganador , false hay empate
-  
-  
+
+
   //para resetear el juego
-  const resetGame = ()  =>{
+  const resetGame = () => {
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
     resetGameStorage()
   }
 
-  const updatedBoard = (index) =>{    
+  const updatedBoard = (index) => {
     //si ya existe algo no sobreescribas termina la funcion
     if (board[index] || winner) return
-    
+
     const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
-    setTurn(newTurn)        
+    setTurn(newTurn)
     //revisar si existe ganador
     const newWinner = checkWinnerFrom(newBoard)
-    if(newWinner){
+    if (newWinner) {
       confetti()
-      setWinner(newWinner)      
-    }else if (checkEndGame(newBoard)){
+      setWinner(newWinner)
+    } else if (checkEndGame(newBoard)) {
       setWinner(false)
-    }    
+    }
   }
 
   //para guardar la partida
-  useEffect(()=>{
-      saveGameToStorage({
-        board: board,
-        turn: turn
-      })
+  useEffect(() => {
+    saveGameToStorage({
+      board: board,
+      turn: turn
+    })
 
-  },[turn,board])
+  }, [turn, board])
 
   return (
     <main className='board'>
@@ -65,12 +65,12 @@ function App() {
       <button onClick={resetGame}>Reset del juego</button>
       <section className='game'>
         {
-          board.map((square, index) =>{
-            return(
-              <Square key={index}  index={index} updatedBoard={updatedBoard} >
+          board.map((square, index) => {
+            return (
+              <Square key={index} index={index} updatedBoard={updatedBoard} >
                 {square}
-              </Square>              
-            )            
+              </Square>
+            )
           })
         }
       </section>
@@ -84,9 +84,9 @@ function App() {
         </Square>
       </section>
 
-      <WinnerModal resetGame={resetGame} winner={winner}/>
-      
-         
+      <WinnerModal resetGame={resetGame} winner={winner} />
+
+
 
     </main>
   )

@@ -24,11 +24,20 @@ function App() {
 
   }, [enabled])
 
+
+  useEffect(() => {
+    document.body.classList.toggle('no-cursor', enabled)
+
+    return () => {
+      document.body.classList.toggle('no-cursor')
+    }
+  }, [enabled])
+
   return (
     <main>
       <div style={{
         position: 'absolute',
-        backgroundColor: '#09f',
+        backgroundColor: 'rgba(0,0,0,0.5)',
         border: '3px solid #fff',
         borderRadius: '50%',
         opacity: 0.8,

@@ -1,10 +1,12 @@
 import { Square } from "./Square"
-export function WinnerModal ({resetGame,winner}) {
-    if(winner === null) return null
+import { PropTypes } from "prop-types"
+
+export function WinnerModal({ resetGame, winner }) {
+    if (winner === null) return null
 
     const winnerText = winner === false ? 'Empate' : 'Ganó: '
-    
-    return(       
+
+    return (
         <section className='winner'>
             <div className='tex'>
                 <h2 className="Wm-title">
@@ -16,7 +18,12 @@ export function WinnerModal ({resetGame,winner}) {
                 <footer>
                     <button onClick={resetGame}>Empezar de Nuevo</button>
                 </footer>
-            </div>            
+            </div>
         </section>
-    )     
+    )
 }
+
+WinnerModal.propTypes = {
+    resetGame: PropTypes.func.isRequired, // Espera que resetGame sea una función y es requerida
+    winner: PropTypes.string, // Espera que winner sea una cadena (puedes ajustar el tipo según corresponda)
+};

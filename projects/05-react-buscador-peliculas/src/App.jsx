@@ -44,8 +44,7 @@ function App() {
     const [sort, setSort] = useState(false)
     const { search, updateSearch, error } = useSearch()
     const { movies,loading , getMovies } = useMovies({search,sort})
-    const debounceGetMovies = useCallback( debounce(search => {
-        console.log('search', search)        
+    const debounceGetMovies = useCallback( debounce(search => {        
         getMovies({search})
     }, 500)
     ,[])
@@ -62,8 +61,8 @@ function App() {
 
     const handleChange = (event) => {                
         //para que no guarde espacios en blanco
-        const newSearch = event.target.value
-        if(newSearch.startsWith(' '))return
+        const newSearch = event.target.value        
+        if(newSearch.startsWith(' ') )return
         updateSearch(newSearch)        
         debounceGetMovies(newSearch)
     }
@@ -84,7 +83,7 @@ function App() {
                         placeholder='Avengers, Star Wars, The Matrix' type="text"
                     />
                     
-                    {movies ? <input type="checkbox" onChange={handleSort} checked={sort} /> : <></>}
+                    { movies ? <input type="checkbox" onChange={handleSort} checked={sort} /> : <></>}
 
                     <button type='submit'>Buscar</button>
                 </form>

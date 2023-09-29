@@ -23,10 +23,15 @@ export function useMovies({search,sort}) {
     },[])
       
   const sortedMovies = useMemo(() => {
-    if (movies){
-      console.log('memoSortedMovies')
+    
+    if (movies) {
+       console.log('memoSortedMovies')
       return sort ? [...movies].sort((a, b) => a.title.localeCompare(b.title)) : movies                        
     }
+    //else {
+    //   return movies
+    // }
+
   }, [sort, movies])  
 
   //getSortedMovies(movies)
